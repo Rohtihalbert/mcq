@@ -258,6 +258,8 @@
         }
 
         function showResult() {
+            // Hide skip button on summary
+            document.querySelector('.back-btn').style.display = 'none';
             updateProgressBar();
             document.getElementById('progress-bar').style.width = "100%";
             // Generate summary with user's answers
