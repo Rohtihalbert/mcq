@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Knowledge MCQ Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #e0e7ff 0%, #f4f6fa 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 500px;
+            margin: 60px auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(37,99,235,0.10), 0 1.5px 6px rgba(0,0,0,0.03);
+            padding: 40px 30px 32px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #2563eb 60%, #60a5fa 100%);
+            opacity: 0.12;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        h2 {
+            font-family: 'Montserrat', Arial, sans-serif;
+            color: #2563eb;
+            font-size: 2em;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            z-index: 1;
+            position: relative;
+        }
+        .question {
+            font-size: 1.18em;
+            margin-bottom: 22px;
+            color: #374151;
+            font-weight: 600;
+            z-index: 1;
+            position: relative;
+        }
+        .options label {
+            display: flex;
+            align-items: center;
+            background: #f1f5f9;
+            margin-bottom: 12px;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+            border: 2px solid transparent;
+            font-size: 1.05em;
+            z-index: 1;
+            position: relative;
+        }
+        .options input[type="radio"] {
+            accent-color: #2563eb;
+            margin-right: 14px;
+            transform: scale(1.2);
+        }
+        .options label:hover, .options input[type="radio"]:focus + label {
+            background: #e0e7ef;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.07);
+        }
+        .submit-btn, .next-btn {
+            background: linear-gradient(90deg, #2563eb 60%, #60a5fa 100%);
+            color: #fff;
+            border: none;
+            padding: 12px 36px;
+            border-radius: 8px;
+            font-size: 1.08em;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 22px;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+            z-index: 1;
+            position: relative;
+            display: none; /* Hide submit button */
+        }
+        .submit-btn:hover, .next-btn:hover {
+            background: linear-gradient(90deg, #1e40af 60%, #2563eb 100%);
+            transform: translateY(-2px) scale(1.03);
+        }
+        .result {
+            font-size: 1.25em;
+            color: #16a34a;
+            margin-top: 26px;
+            text-align: center;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 700;
+            z-index: 1;
+            position: relative;
+        }
+        .result.wrong {
+            color: #dc2626;
+        }
+        .score {
+            font-size: 1.08em;
+            color: #2563eb;
+            margin-top: 16px;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 600;
+            z-index: 1;
+            position: relative;
+        }
+        .progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background: #e0e7ef;
+            border-radius: 6px;
+            margin-bottom: 28px;
+            overflow: hidden;
+            z-index: 1;
+            position: relative;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #2563eb 60%, #60a5fa 100%);
+            border-radius: 6px;
+            transition: width 0.4s;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 6vw 18px 6vw;
+            }
+            h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-btn" onclick="skipQuestion()" style="background:linear-gradient(90deg,#60a5fa 60%,#2563eb 100%);color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:1em;font-family:'Montserrat',Arial,sans-serif;font-weight:600;cursor:pointer;margin-bottom:18px;transition:background 0.2s,transform 0.1s;box-shadow:0 2px 8px rgba(37,99,235,0.08);position:relative;z-index:2;">
+            ⏭️ Skip Question
+        </button>
+        <h2>General Knowledge MCQ Quiz</h2>
+        <div class="progress-bar-bg">
+            <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+        </div>
+        <div id="quiz-box">
+            <!-- Quiz content will be injected here -->
+        </div>
+    </div>
+    <script>
+        const questions = [
+            {
+                question: "Which element has the chemical symbol 'Fe'?",
+                options: ["Fluorine", "Iron", "Francium", "Fermium"],
+                answer: 1
+            },
+            {
+                question: "Who developed the theory of general relativity?",
+                options: ["Isaac Newton", "Albert Einstein", "Niels Bohr", "Galileo Galilei"],
+                answer: 1
+            },
+            {
+                question: "Which country is NOT a permanent member of the United Nations Security Council?",
+                options: ["France", "Germany", "China", "Russia"],
+                answer: 1
+            },
+            {
+                question: "What is the smallest prime number greater than 100?",
+                options: ["101", "103", "107", "109"],
+                answer: 0
+            },
+            {
+                question: "Which language is the most widely spoken native language in the world?",
+                options: ["English", "Hindi", "Mandarin Chinese", "Spanish"],
+                answer: 2
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+        let userAnswers = []; // Add this at the top with other variables
+
+        function updateProgressBar() {
+            const percent = ((currentQuestion) / questions.length) * 100;
+            document.getElementById('progress-bar').style.width = percent + "%";
+        }
+
+        function showQuestion() {
+            answered = false;
+            updateProgressBar();
+            const q = questions[currentQuestion];
+            let html = `
+                <div class="question">${currentQuestion + 1}. ${q.question}</div>
+                <form id="optionsForm" class="options">
+            `;
+            q.options.forEach((opt, idx) => {
+                html += `
+                    <label onclick="if(!answered) selectOption(this, ${idx})" style="cursor:pointer;">
+                        <span class="blue-dot" id="dot-${idx}" style="display:inline-block;width:16px;height:16px;border-radius:50%;background:#2563eb;margin-right:14px;vertical-align:middle;opacity:0.3;transition:opacity 0.2s;"></span>
+                        <input type="radio" name="option" value="${idx}" style="display:none;">
+                        ${opt}
+                    </label>
+                `;
+            });
+            html += `
+                </form>
+                <div class="score">Score: ${score}/${questions.length}</div>
+            `;
+            document.getElementById('quiz-box').innerHTML = html;
+        }
+
+        function selectOption(label, idx) {
+            // Highlight only the selected dot
+            document.querySelectorAll('.blue-dot').forEach(dot => dot.style.opacity = '0.3');
+            document.getElementById('dot-' + idx).style.opacity = '1';
+            // Mark radio as checked (for accessibility, not visible)
+            label.querySelector('input[type="radio"]').checked = true;
+            submitAnswer(label.querySelector('input[type="radio"]'));
+        }
+
+        function submitAnswer(input) {
+            if (answered) return;
+            const selected = input.value;
+            answered = true;
+            userAnswers[currentQuestion] = parseInt(selected); // Store user's answer
+            const correct = questions[currentQuestion].answer;
+            let resultHtml = "";
+            if (parseInt(selected) === correct) {
+                score++;
+                resultHtml = `<div class="result">Correct!</div>`;
+            } else {
+                resultHtml = `<div class="result wrong">Wrong! Correct answer: <b>${questions[currentQuestion].options[correct]}</b></div>`;
+            }
+            document.getElementById('quiz-box').innerHTML += resultHtml;
+            setTimeout(() => {
+                nextQuestion();
+            }, 1300);
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            updateProgressBar();
+            document.getElementById('progress-bar').style.width = "100%";
+            // Generate summary with user's answers
+            let summaryHtml = `<div style="text-align:left;margin:24px 0 18px 0;"><b>Quiz Summary:</b><ol style="padding-left:20px;">`;
+            questions.forEach((q, i) => {
+                let userAns = userAnswers[i] !== undefined ? q.options[userAnswers[i]] : "<i>No answer</i>";
+                let userColor = (userAnswers[i] === q.answer) ? "#16a34a" : "#dc2626";
+                summaryHtml += `<li style="margin-bottom:10px;">
+            <span style="color:#2563eb;">${q.question}</span><br>
+            <span style="color:#374151;">Your Answer: <b style="color:${userColor}">${userAns}</b></span><br>
+            <span style="color:#374151;">Correct Answer: <b>${q.options[q.answer]}</b></span>
+        </li>`;
+            });
+            summaryHtml += `</ol></div>`;
+
+            document.getElementById('quiz-box').innerHTML = `
+                <div class="result" style="font-size:1.4em;">🎉 Quiz Completed!</div>
+                <div class="score" style="font-size:1.2em;">Your Score: ${score} / ${questions.length}</div>
+                ${summaryHtml}
+                <button class="next-btn" onclick="restartQuiz()">Restart Quiz</button>
+                <button class="back-btn" onclick="showPercentageAndGoHome()" style="background:linear-gradient(90deg,#2563eb 60%,#60a5fa 100%);color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:1em;font-family:'Montserrat',Arial,sans-serif;font-weight:600;cursor:pointer;margin-top:18px;display:inline-block;transition:background 0.2s,transform 0.1s;box-shadow:0 2px 8px rgba(37,99,235,0.08);position:relative;z-index:2;">
+                    ← Back to Home
+                </button>
+            `;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            showQuestion();
+        }
+
+        // Shuffle utility
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Shuffle questions and options, and update answer indices
+        function shuffleQuestionsAndOptions() {
+            // Shuffle questions
+            shuffleArray(questions);
+
+            // Shuffle options for each question and update answer index
+            questions.forEach(q => {
+                const originalOptions = q.options.map((opt, idx) => ({ opt, idx }));
+                shuffleArray(originalOptions);
+                q.options = originalOptions.map(item => item.opt);
+                q.answer = originalOptions.findIndex(item => item.idx === q.answer);
+            });
+        }
+
+        // Shuffle on page load
+        shuffleQuestionsAndOptions();
+
+        // Initialize quiz
+        showQuestion();
+
+        // Add this function to your script section
+        function skipQuestion() {
+            if (answered) return;
+            userAnswers[currentQuestion] = undefined; // Mark as skipped
+            answered = true;
+            setTimeout(() => {
+                nextQuestion();
+            }, 300);
+        }
+
+        // Add this function to your script section
+        function showPercentageAndGoHome() {
+            const percent = Math.round((score / questions.length) * 100);
+            alert(`You scored ${percent}%`);
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
