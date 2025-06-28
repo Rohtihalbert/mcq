@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>About Me - Rohith</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto&display=swap" rel="stylesheet">
     <style>
@@ -12,6 +12,8 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         .about-container {
             max-width: 500px;
@@ -21,7 +23,6 @@
             box-shadow: 0 8px 32px rgba(37,99,235,0.10), 0 1.5px 6px rgba(0,0,0,0.03);
             padding: 40px 30px 32px 30px;
             text-align: center;
-            position: relative;
         }
         .profile-img {
             width: 90px;
@@ -34,7 +35,7 @@
             cursor: pointer;
         }
         .profile-img:hover {
-            transform: scale(2.2);
+            transform: scale(1.2);
             box-shadow: 0 8px 32px #2563eb88;
             z-index: 100;
         }
@@ -51,7 +52,7 @@
             margin-bottom: 22px;
             line-height: 1.7;
         }
-        .back-btn {
+        .back-btn, .portfolio-btn {
             background: linear-gradient(90deg, #2563eb 60%, #60a5fa 100%);
             color: #fff;
             border: none;
@@ -61,14 +62,21 @@
             font-family: 'Montserrat', Arial, sans-serif;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 18px;
+            margin: 12px auto;
             transition: background 0.2s, transform 0.1s;
             box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+            display: inline-block;
         }
-        .back-btn:hover {
+        .back-btn:hover, .portfolio-btn:hover {
             background: linear-gradient(90deg, #1e40af 60%, #2563eb 100%);
             transform: translateY(-2px) scale(1.03);
         }
+
+        .footer-button {
+            text-align: center;
+            padding: 30px 0;
+        }
+
         @media (max-width: 600px) {
             .about-container {
                 padding: 20px 6vw 18px 6vw;
@@ -84,15 +92,23 @@
     </style>
 </head>
 <body>
+
     <div class="about-container">
         <img class="profile-img" src="./image.jpg" alt="Profile Picture" id="profilePic" />
         <h1>About Me</h1>
         <div class="desc">
-           Hello! I'm A.NATHANIEL ROHITH, a passionate web developer specializing in creating beautiful, user-friendly websites and web apps. I love turning ideas into reality with clean, efficient code and creative design. Alongside web development, I’m also passionate about photo editing. With a keen eye for detail and creativity, I specialize in enhancing images to bring out their full potential. Whether it's retouching portraits, creating visually appealing social media posts, or designing graphic content, I enjoy transforming ordinary pictures into polished visuals.<br>
-            <br>
-            <span style="color:#2563eb;font-weight:600;">Thank you for visiting and happy quizzing!</span>
+           Hello! I'm A.NATHANIEL ROHITH, a passionate web developer specializing in creating beautiful, user-friendly websites and web apps. I love turning ideas into reality with clean, efficient code and creative design. Alongside web development, I’m also passionate about photo editing. With a keen eye for detail and creativity, I specialize in enhancing images to bring out their full potential. Whether it's retouching portraits, creating visually appealing social media posts, or designing graphic content, I enjoy transforming ordinary pictures into polished visuals.<br><br>
+           <span style="color:#2563eb;font-weight:600;">Thank you for visiting and happy quizzing!</span>
         </div>
         <button class="back-btn" onclick="window.location.href='index.html'">Back to Home</button>
     </div>
+
+    <!-- Portfolio Button at the Bottom -->
+    <div class="footer-button">
+        <button class="portfolio-btn" onclick="window.open('https://rohtihalbert.github.io/portfolio/', '_blank')">
+            Visit My Portfolio
+        </button>
+    </div>
+
 </body>
 </html>
